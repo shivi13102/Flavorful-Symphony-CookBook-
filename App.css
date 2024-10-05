@@ -1,0 +1,127 @@
+/* Main container */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  background-image: url('./Images/Background.jpeg'); /* Your fixed background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: white;
+  padding-top: 40vh; /* Increased top padding */
+  padding-bottom: 40vh; /* Increased bottom padding */
+}
+
+/* Title styles */
+.title {
+  font-family: 'Caveat', cursive;
+  font-size: 4em;
+  margin: 0; /* Remove extra margin */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Subtitle styles */
+.subtitle {
+  font-family: 'Playwrite DE Grund', cursive;
+  font-size: 2em;
+  margin-top: 20px; /* Adjust spacing between title and subtitle */
+}
+
+/* Gradient section after scrolling */
+.gradient-section {
+  background: linear-gradient(to bottom, rgba(255, 165, 0, 0.2), rgba(255, 165, 0, 0.7)); /* Light orange gradient */
+  padding: 50px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40vh; /* Start the gradient section further down */
+  
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Slightly pushed down */
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* Smooth transition for opacity and position */
+}
+
+/* Apply effect when it starts appearing (e.g., based on scrolling or viewport visibility) */
+.gradient-section.visible {
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Move into place */
+}
+
+/* Cards container */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive columns */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effects */
+  min-height: 50px; /* Reduced card height */
+  position: relative; /* Required for absolute positioning */
+  overflow: hidden; /* Ensures overflow is hidden */
+  cursor: pointer;
+}
+
+.card-image {
+  width: 100%; /* Keep the image full width */
+  height: 180px; /* Image height remains the same */
+  object-fit: cover; /* Ensures the image covers the space proportionally */
+  border-radius: 10px 10px 0 0; /* Rounds the top corners of the image */
+  margin-bottom: 15px; /* Spacing between the image and the card title */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for image */
+}
+
+.card-hover-image {
+  width: 100%; /* Full width */
+  height: 180px; /* Same height as the main image */
+  position: absolute; /* Position absolutely to overlap the card */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  background-size: cover; /* Cover the entire space */
+  background-position: center; /* Center the image */
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  padding: 0; /* Ensure no padding is applied */
+  margin: 0; /* Ensure no margin is applied */
+}
+
+.card:hover .card-image {
+  opacity: 0; /* Fade out the main image on hover */
+  transform: scale(1.05); /* Slightly scale up the image */
+}
+
+.card:hover .card-hover-image {
+  opacity: 1; /* Fade in the hover image */
+  transform: scale(1.05); /* Slightly scale up the hover image */
+}
+
+/* Add scale and shadow effect on hover */
+.card:hover {
+  transform: scale(1.05); /* Slightly scale up the card */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Add a deeper shadow for emphasis */
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: black;
+  font-family: 'Shadows Into Light', cursive; /* Apply the Shadows Into Light font here */
+  margin-bottom: 5px; /* Decrease space below country names */
+}
+
+
