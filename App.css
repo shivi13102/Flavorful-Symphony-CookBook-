@@ -14,7 +14,7 @@
   min-height: 100vh;
   color: white;
   padding-top: 40vh; /* Increased top padding */
-  padding-bottom: 40vh; /* Increased bottom padding */
+  padding-bottom: 0vh; /* Increased bottom padding */
 }
 
 /* Title styles */
@@ -32,26 +32,38 @@
   margin-top: 20px; /* Adjust spacing between title and subtitle */
 }
 
+.gradient-section h2 {
+  font-family: 'Caveat', cursive; /* Same font as the title */
+  font-size: 3em; /* Adjust the size to match or complement the title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Same shadow effect for consistency */
+  margin-bottom: 20px; /* Adjust spacing if needed */
+  color: white; /* Ensure it contrasts with the gradient background */
+}
+
 /* Gradient section after scrolling */
 .gradient-section {
-  background: linear-gradient(to bottom, rgba(255, 165, 0, 0.2), rgba(255, 165, 0, 0.7)); /* Light orange gradient */
+  background: linear-gradient(90deg, rgba(255, 165, 0, 0.2) 0%, rgba(187, 125, 8, 0.7) 100%);
+  background-size: 200% 100vh; /* Make the background twice the width of the viewport, and 100% of the viewport height */
+  background-position: 0% 0%; /* Start from the left */
   padding: 50px 0;
   width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  min-height: 200vh; /* Ensure it covers the full viewport height */
   margin-top: 40vh; /* Start the gradient section further down */
   
   opacity: 0; /* Initially hidden */
   transform: translateY(20px); /* Slightly pushed down */
-  transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* Smooth transition for opacity and position */
+  transition: opacity 1.5s ease-out, transform 1s ease-out, background-position 1.5s ease-out; /* Add background transition */
 }
 
 /* Apply effect when it starts appearing (e.g., based on scrolling or viewport visibility) */
 .gradient-section.visible {
   opacity: 1; /* Fully visible */
   transform: translateY(0); /* Move into place */
+  background-position: 100% 0%; /* Move the gradient to the right */
 }
 
 /* Cards container */
@@ -62,7 +74,6 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
 
 .card {
   background-color: white;
@@ -124,4 +135,61 @@
   margin-bottom: 5px; /* Decrease space below country names */
 }
 
+.recipe-of-the-day {
+  display: flex;
+  align-items: flex-start; /* Align items to the start */
+  justify-content: flex-end; /* Align content to the right */
+  background-color: #ce8105; /* Darker orange color */
+  color: white;
+  padding: 40px;
+  margin-top: 0px;
+}
 
+.recipe-image {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 10px;
+  margin-left: 20px; /* Add left margin for spacing */
+  margin-right: 30px; /* Add right margin for spacing */
+  transform: rotate(10deg); /* Rotate the image by 30 degrees */
+  transition: transform 0.3s ease; /* Optional: smooth transition on hover */
+}
+
+.recipe-description {
+  
+  flex: 1; /* Allow the description to take remaining space */
+}
+
+/* Style for Recipe of the Day Title */
+.recipe-of-the-day-title {
+  font-family: 'Caveat', cursive;
+  font-size: 4em; /* Adjust size as needed */
+  font-weight: bold;
+  margin-bottom: 5px; /* Space below the title */
+  color: #fff8e1; /* Color for contrast */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.recipe-title {
+  font-family: 'Playwrite DE Grund', cursive;
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #fff8e1; /* Slightly lighter for contrast */
+  text-align: left; /* Align the title to the left */
+}
+
+.recipe-description p {
+  font-family: 'Playwrite DE Grund', cursive;
+  line-height: 1.5;
+  text-align: left; /* Align the paragraph text to the left */
+}
+
+.footer {
+  background-color: #282c34; /* Dark background for contrast */
+  color: white; /* Text color */
+  text-align: center; /* Center align text */
+  padding: 20px; /* Add some padding */
+  position: relative; /* Adjust positioning */
+  bottom: 0; /* Stick to bottom */
+  width: 100%; /* Full width */
+}
