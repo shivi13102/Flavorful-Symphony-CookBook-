@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Importing images
 import argentinaImage from './Images/argentina.jpeg';
@@ -42,6 +42,9 @@ import turkeyImage from './Images/turkey.jpeg';
 import kebabsImage from './Images/kebabs.jpg';
 import italyImage from './Images/italy.jpg';
 import pizzaImage from './Images/pizza.jpg';
+import choleImage from './Images/chole_bhature.jpeg';
+import cinnamonImage from './Images/cinnamon rolls.jpeg';
+import casseroleImage from './Images/Johnny Marzetti Casserole.jpeg';
 
 const countriesData = [
   { name: "Argentina", image: argentinaImage, hoverImage: asadoImage },
@@ -66,7 +69,59 @@ const countriesData = [
   { name: "Italy", image: italyImage, hoverImage: pizzaImage },
 ];
 
+const recipesOfTheDay = [
+  {
+    name: "Chole Bhature",
+    image: choleImage,
+    description: "A popular North Indian dish, Chole Bhature is a combination of spicy chickpeas and fried bread. The chickpeas are simmered in a tangy, aromatic tomato-based sauce, making it a perfect companion to the crispy, golden bhature.",
+  },
+  {
+    name: "Cinnamon Rolls",
+    image: cinnamonImage,
+    description: "These sweet, fluffy rolls are filled with a cinnamon-sugar mixture and baked to perfection. Topped with a creamy icing, they make for a perfect treat any time of the day.",
+  },
+  {
+    name: "Johnny Marzetti Casserole",
+    image: casseroleImage,
+    description: "Johnny Marzetti Casserole is a hearty dish that combines ground beef, noodles, and tomato sauce with a cheesy topping. It's a comfort food classic, perfect for family dinners.",
+  },
+];
+
 function App() {
+  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRecipeIndex((prevIndex) => (prevIndex + 1) % recipesOfTheDay.length);
+    }, 24 * 60 * 60 * 1000); // Change recipe every 24 hours
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const recipeOfTheDay = recipesOfTheDay[currentRecipeIndex];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    const gradientSection = document.querySelector('.gradient-section');
+    if (gradientSection) {
+      observer.observe(gradientSection);
+    }
+
+    return () => {
+      if (gradientSection) {
+        observer.unobserve(gradientSection);
+      }
+    };
+  }, []);
+
   return (
     <div className="App">
       <header>
@@ -81,19 +136,29 @@ function App() {
           ))}
         </div>
       </div>
+      
+      {/* Recipe of the Day Section */}
+      <div className="recipe-of-the-day">
+        <h2 className="recipe-of-the-day-title">Recipe of the Day</h2>
+        <img 
+          src={recipeOfTheDay.image} 
+          alt={recipeOfTheDay.name} 
+          className="recipe-image" 
+        />
+        <div className="recipe-description">
+          <h2 className="recipe-title">{recipeOfTheDay.name}</h2>
+          <p>{recipeOfTheDay.description}</p>
+        </div>
+      </div>
+      
+      {/* Footer Section */}
+      <footer className="footer">
+        <p>© 2024 Flavorful Symphony. All rights reserved.</p>
+        <p>Follow us on social media for more delicious recipes!</p>
+      </footer>
     </div>
   );
 }
-
-document.addEventListener('scroll', function() {
-  const gradientSection = document.querySelector('.gradient-section');
-  const sectionPosition = gradientSection.getBoundingClientRect().top;
-  const screenPosition = window.innerHeight / 1.2; // Adjust this to control when the effect starts
-
-  if (sectionPosition < screenPosition) {
-    gradientSection.classList.add('visible');
-  }
-});
 
 const CountryCard = ({ country }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -118,7 +183,5 @@ const CountryCard = ({ country }) => {
     </div>
   );
 };
-
-
 
 export default App;
